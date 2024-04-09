@@ -1,0 +1,7 @@
+\begin{document} -> <!DOCTYPE html> <html lang=”pt-br”> <body>
+\title{ X } -> <h1> X </h1>
+\author{ X } -> <h2> X </h2>
+\begin{abstract} -> <h2> Abstract </h2> <p>
+\end{abstract} -> </p> <ol>
+\section{ X } Y -> <li><h2> X </h2> <p> Y </p></li>
+\end{document} -> </ol></body></html> 

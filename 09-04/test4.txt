@@ -1,0 +1,18 @@
+\begin{document}
+\title{ Artigo }
+\author{ Nome do autor, Afiliacao, emailautor@ipb.pt}
+\maketitle
+\begin{abstract}
+This is a minimal template of a Latex file and the idea is to
+translate it to HTML.
+\end{abstract}
+\section{Introduction}
+This introduction is usually used to state the objectives of the work
+described in the paper. The paper is divided into three sections
+before conclusion: section 2 presents the contextualization of the
+work described, some examples are given in section 3, the results are
+presented at section 4.
+\section{Contextualization}
+Here the text of this section is written and references to articles
+are at the end of the paper.
+\end{document}

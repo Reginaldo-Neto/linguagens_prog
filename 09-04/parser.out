@@ -1,0 +1,116 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> prog
+Rule 1     prog -> relacoes
+Rule 2     relacoes -> relacao
+Rule 3     relacoes -> relacoes relacao
+Rule 4     relacao -> SON APAR PESSOA VIR PESSOA FPAR
+
+Terminals, with rules where they appear
+
+APAR                 : 4
+FPAR                 : 4
+PESSOA               : 4 4
+SON                  : 4
+VIR                  : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+prog                 : 0
+relacao              : 2 3
+relacoes             : 1 3
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . prog
+    (1) prog -> . relacoes
+    (2) relacoes -> . relacao
+    (3) relacoes -> . relacoes relacao
+    (4) relacao -> . SON APAR PESSOA VIR PESSOA FPAR
+
+    SON             shift and go to state 4
+
+    prog                           shift and go to state 1
+    relacoes                       shift and go to state 2
+    relacao                        shift and go to state 3
+
+state 1
+
+    (0) S' -> prog .
+
+
+
+state 2
+
+    (1) prog -> relacoes .
+    (3) relacoes -> relacoes . relacao
+    (4) relacao -> . SON APAR PESSOA VIR PESSOA FPAR
+
+    $end            reduce using rule 1 (prog -> relacoes .)
+    SON             shift and go to state 4
+
+    relacao                        shift and go to state 5
+
+state 3
+
+    (2) relacoes -> relacao .
+
+    SON             reduce using rule 2 (relacoes -> relacao .)
+    $end            reduce using rule 2 (relacoes -> relacao .)
+
+
+state 4
+
+    (4) relacao -> SON . APAR PESSOA VIR PESSOA FPAR
+
+    APAR            shift and go to state 6
+
+
+state 5
+
+    (3) relacoes -> relacoes relacao .
+
+    SON             reduce using rule 3 (relacoes -> relacoes relacao .)
+    $end            reduce using rule 3 (relacoes -> relacoes relacao .)
+
+
+state 6
+
+    (4) relacao -> SON APAR . PESSOA VIR PESSOA FPAR
+
+    PESSOA          shift and go to state 7
+
+
+state 7
+
+    (4) relacao -> SON APAR PESSOA . VIR PESSOA FPAR
+
+    VIR             shift and go to state 8
+
+
+state 8
+
+    (4) relacao -> SON APAR PESSOA VIR . PESSOA FPAR
+
+    PESSOA          shift and go to state 9
+
+
+state 9
+
+    (4) relacao -> SON APAR PESSOA VIR PESSOA . FPAR
+
+    FPAR            shift and go to state 10
+
+
+state 10
+
+    (4) relacao -> SON APAR PESSOA VIR PESSOA FPAR .
+
+    SON             reduce using rule 4 (relacao -> SON APAR PESSOA VIR PESSOA FPAR .)
+    $end            reduce using rule 4 (relacao -> SON APAR PESSOA VIR PESSOA FPAR .)
+

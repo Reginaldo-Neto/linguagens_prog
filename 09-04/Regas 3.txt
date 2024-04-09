@@ -1,0 +1,11 @@
+ENTRADA:
+
+son(A,B)
+son(A,C)
+
+SAIDA:
+
+digraph{
+    A->B
+    A->C
+}

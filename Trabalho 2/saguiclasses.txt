@@ -1,0 +1,17 @@
+TITULO: AOBA
+DIAGRAMA GERAL:
+<<CLASSES	
+    School(
+        PRI STRING: name;
+        PRI LIST<Course>: coursesCollection;
+        PRI LIST<Teacher>: teachersCollection;
+        |
+        PUB addCourse(); 
+        PUB addTeacher();
+    );
+    Course(
+        PRI STRING: name;
+        PRI LIST<Student>: studentsCollection;
+        PRI LIST<Subject>: subjectsCollection;
+    );
+>>

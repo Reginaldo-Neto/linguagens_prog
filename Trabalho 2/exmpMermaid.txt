@@ -6,7 +6,7 @@ classDiagram
     Subject "0..*" -- "0..*" Student
     Grade -- Subject
     Grade -- Student
-    Teacher "0..*" --"1" Subject: teaches
+    Teacher "0..*" -- "1" Subject: teaches
     Person <|-- Student
     Person <|-- Teacher
     School "1" *--> "1..*" Teacher

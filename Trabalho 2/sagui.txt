@@ -1,14 +1,14 @@
 TITULO: IPB
 DIAGRAMA GERAL:
 <<RELACOES		
-    Course (0* --o 1) School;
-    Course (1 o-- 0*) Subject;
+    Course (0* -- 1) School;
+    Course (1 -- 0*) Subject;
     Student (1 -"attends"- 0*) Course;
     Subject (0*-- ) Grade ( -- 0*) Student;
-    Teacher (0* --"teaches"--1) Subject;
+    Teacher (0* -"teaches"- 1) Subject;
     person (<|--) Teacher;
     person (<|--) Student;
-    School (1 *--> 1*) Teacher;
+    School (1* --> 1*) Teacher;
 >>
 <<CLASSES
     School(
@@ -25,7 +25,9 @@ DIAGRAMA GERAL:
         PRI LIST<Subject>: subjectsCollection;
     );
     Grade(
-        PRI INT: value, subject_code, student_number;
+        PRI INT: value;
+        PRI INT: subject_code;
+        PRI INT: student_number;
         |
         PUB INT: getValue();
         PUB VOID: setValue();
@@ -39,7 +41,9 @@ DIAGRAMA GERAL:
         PRI LIST<Grade>: gradesCollection;
         );
     Subject(
-        PRI STRING: name, course_name, teacher_name;
+        PRI STRING: name; 
+        PRI STRING: course_name;
+        PRI STRING: teacher_name;
         PRI INT: code;
         PRI LIST<Grade>: gradesCollection;
     );

@@ -1,0 +1,92 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    CARD_UM
+    CARD_UM_VARIOS
+    CARD_VARIOS
+    CARD_ZERO_UM
+    CARD_ZERO_VARIOS
+    CLASSES
+    PRIVACIDADE
+    RELACOES
+    REL_AGREGACAO_DIR
+    REL_AGREGRACAO_ESQ
+    REL_ASSOCIACAO_DIR
+    REL_ASSOCIACAO_ESQ
+    REL_COMPOSICAO_DIR
+    REL_COMPOSICAO_ESQ
+    REL_DEPENDENCIA_DIR
+    REL_DEPENDENCIA_ESQ
+    REL_HERANCA_DIR
+    REL_HERANCA_ESQ
+    REL_REALIZACAO_DIR
+    REL_REALIZACAO_ESQ
+    REL_SOLIDA
+    REL_TRACEJADA
+    TIPO
+    VIRGULA
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> comeco iniClasses relacoes
+Rule 2     comeco -> TITULO DOIS_PONTOS VARIAVEL DIAGRAMA DOIS_PONTOS
+Rule 3     iniClasses -> MENORQ MENORQ classes MAIORQ MAIORQ
+Rule 4     classes -> classe
+Rule 5     classes -> classes classe
+Rule 6     classe -> VARIAVEL ABRE_PAR interno_classe FECHA_PAR PONTO_VIRGULA
+Rule 7     interno_classe -> atributos
+Rule 8     interno_classe -> interno_classe metodos
+Rule 9     interno_classe -> interno_classe atributos RETA metodos
+
+Terminals, with rules where they appear
+
+ABRE_PAR             : 6
+CARD_UM              : 
+CARD_UM_VARIOS       : 
+CARD_VARIOS          : 
+CARD_ZERO_UM         : 
+CARD_ZERO_VARIOS     : 
+CLASSES              : 
+DIAGRAMA             : 2
+DOIS_PONTOS          : 2 2
+FECHA_PAR            : 6
+MAIORQ               : 3 3
+MENORQ               : 3 3
+PONTO_VIRGULA        : 6
+PRIVACIDADE          : 
+RELACOES             : 
+REL_AGREGACAO_DIR    : 
+REL_AGREGRACAO_ESQ   : 
+REL_ASSOCIACAO_DIR   : 
+REL_ASSOCIACAO_ESQ   : 
+REL_COMPOSICAO_DIR   : 
+REL_COMPOSICAO_ESQ   : 
+REL_DEPENDENCIA_DIR  : 
+REL_DEPENDENCIA_ESQ  : 
+REL_HERANCA_DIR      : 
+REL_HERANCA_ESQ      : 
+REL_REALIZACAO_DIR   : 
+REL_REALIZACAO_ESQ   : 
+REL_SOLIDA           : 
+REL_TRACEJADA        : 
+RETA                 : 9
+TIPO                 : 
+TITULO               : 2
+VARIAVEL             : 2 6
+VIRGULA              : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+atributos            : 7 9
+classe               : 4 5
+classes              : 3 5
+comeco               : 1
+iniClasses           : 1
+interno_classe       : 6 8 9
+metodos              : 8 9
+program              : 0
+relacoes             : 1
+

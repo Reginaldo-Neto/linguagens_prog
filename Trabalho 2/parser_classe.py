@@ -17,7 +17,7 @@ err = ""
 tokens = (
     'TITULO',  'DIAGRAMA', 'GERAL', 'PALAVRA_CLASSES', 'PALAVRA_RELACOES',
     'ABRE_PAR', 'FECHA_PAR', 'RETA', 'MAIORQ', 'MENORQ', 'DOIS_PONTOS', 'PONTO_VIRGULA', 'VARIAVEL',
-    'TIPO', 'LIST', 'PRIVACIDADE', 'CARDINALIDADE', 'TIPOS_RELACAO', 'ASPAS'
+    'TIPO', 'LIST', 'PRIVACIDADE'#, 'CARDINALIDADE', 'TIPOS_RELACAO', 'ASPAS'
     # 'CARD_UM', 'CARD_VARIOS', 'CARD_ZERO_UM', 'CARD_ZERO_VARIOS', 'CARD_UM_VARIOS',
     # 'REL_SOLIDA', 'REL_TRACEJADA', 
     # 'REL_HERANCA_ESQ', 'REL_HERANCA_DIR',
@@ -50,9 +50,9 @@ def t_PALAVRA_CLASSES(t):
     r'CLASSES'
     return t
 
-def t_PALAVRA_RELACOES(t): 
-    r'RELACOES'
-    return t
+# def t_PALAVRA_RELACOES(t): 
+#     r'RELACOES'
+#     return t
 
 def t_INT(t):
     r'INT'
@@ -131,75 +131,75 @@ def t_CARD_VARIOS (t):
     t.type = "CARDINALIDADE"
     return t
 
-def t_REL_HERANCA_ESQ(t):
-    r'<\|\-'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_HERANCA_ESQ(t):
+#     r'<\|\-'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_HERANCA_DIR(t):
-    r'\-\|>'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_HERANCA_DIR(t):
+#     r'\-\|>'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_COMPOSICAO_ESQ(t):
-    r'\*\-'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_COMPOSICAO_ESQ(t):
+#     r'\*\-'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_COMPOSICAO_DIR (t):
-    r'\-\*'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_COMPOSICAO_DIR (t):
+#     r'\-\*'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_AGREGACAO_ESQ(t):
-    r'o\-'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_AGREGACAO_ESQ(t):
+#     r'o\-'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_AGREGACAO_DIR(t):
-    r'\-o'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_AGREGACAO_DIR(t):
+#     r'\-o'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_ASSOCIACAO_ESQ(t):
-    r'<\-'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_ASSOCIACAO_ESQ(t):
+#     r'<\-'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_ASSOCIACAO_DIR(t):
-    r'\->'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_ASSOCIACAO_DIR(t):
+#     r'\->'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_DEPENDENCIA_ESQ(t):
-    r'<\.'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_DEPENDENCIA_ESQ(t):
+#     r'<\.'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_DEPENDENCIA_DIR(t):
-    r'\.>'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_DEPENDENCIA_DIR(t):
+#     r'\.>'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_REALIZACAO_ESQ(t):
-    r'<\|\.'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_REALIZACAO_ESQ(t):
+#     r'<\|\.'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_REALIZACAO_DIR(t):
-    r'\.\|>'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_REALIZACAO_DIR(t):
+#     r'\.\|>'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_SOLIDA(t):
-    r'\-'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_SOLIDA(t):
+#     r'\-'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
-def t_REL_TRACEJADA(t):
-    r'\.'
-    t.type = "TIPOS_RELACAO"
-    return t
+# def t_REL_TRACEJADA(t):
+#     r'\.'
+#     t.type = "TIPOS_RELACAO"
+#     return t
 
 def t_VARIAVEL(t):
     r'[a-zA-Z_0-9]+'
@@ -229,7 +229,7 @@ lexer = lex.lex()
 # Expansão das regras de análise sintática
 
 def p_def_program(p):
-    'program : comeco iniRelacoes iniClasses'
+    'program : comeco iniClasses'
     p[0] = f"{p[1]}{p[2]}"
     print(p[0])
     
@@ -237,34 +237,34 @@ def p_def_comeco(p):
      'comeco : TITULO DOIS_PONTOS VARIAVEL DIAGRAMA GERAL DOIS_PONTOS'
      p[0] = f"%%{p[1]}{p[2]}{p[3]}\nclassDiagram\n\t"
 
-def p_def_iniRelacoes(p):
-    'iniRelacoes : MENORQ MENORQ PALAVRA_RELACOES relacoes MAIORQ MAIORQ'
-    p[0]= p[4]
+# def p_def_iniRelacoes(p):
+#     'iniRelacoes : MENORQ MENORQ PALAVRA_RELACOES relacoes MAIORQ MAIORQ'
+#     p[0]= p[4]
     
-def p_def_relacoes(p):
-    '''relacoes : relacao
-    | relacoes relacao'''
-    if len(p) == 2:
-        p[0] = p[1]
-    else:
-        p[0] = p[1] + p[2]
+# def p_def_relacoes(p):
+#     '''relacoes : relacao
+#     | relacoes relacao'''
+#     if len(p) == 2:
+#         p[0] = p[1]
+#     else:
+#         p[0] = p[1] + p[2]
         
-def p_def_relacao(p):
-    'relacao : VARIAVEL ABRE_PAR interno_relacao FECHA_PAR VARIAVEL PONTO_VIRGULA'
-    p[0] = f"{p[1]}{p[3]}{p[5]}\n"  
+# def p_def_relacao(p):
+#     'relacao : VARIAVEL ABRE_PAR interno_relacao FECHA_PAR VARIAVEL PONTO_VIRGULA'
+#     p[0] = f"{p[1]}{p[3]}{p[5]}\n"  
     
-def p_interno_relacao(p):
-    '''
-    interno_relacao : CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS TIPOS_RELACAO CARDINALIDADE
-                    | CARDINALIDADE TIPOS_RELACAO TIPOS_RELACAO CARDINALIDADE
-                    | TIPOS_RELACAO TIPOS_RELACAO
-    '''
-    if len(p) == 5:
-        p[0] = '\"' + p[1] + '\" ' + p[2] + ' \"' + p[3] + '\"' 
-    elif len(p)==3:
-        p[0] = p[1]
-    else:
-        p[0] = '\"' + p[1] + '\" ' + p[2] + p[6] + ' \"' + p[7] + '\"'  
+# def p_interno_relacao(p):
+#     '''
+#     interno_relacao : CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS TIPOS_RELACAO CARDINALIDADE
+#                     | CARDINALIDADE TIPOS_RELACAO TIPOS_RELACAO CARDINALIDADE
+#                     | TIPOS_RELACAO TIPOS_RELACAO
+#     '''
+#     if len(p) == 5:
+#         p[0] = '\"' + p[1] + '\" ' + p[2] + ' \"' + p[3] + '\"' 
+#     elif len(p)==3:
+#         p[0] = p[1]
+#     else:
+#         p[0] = '\"' + p[1] + '\" ' + p[2] + p[6] + ' \"' + p[7] + '\"'  
         
 
 

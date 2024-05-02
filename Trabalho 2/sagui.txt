@@ -4,7 +4,6 @@ DIAGRAMA GERAL:
     Course (0* -- 1) School;
     Course (1 -- 0*) Subject;
     Student (1 -"attends"- 0*) Course;
-    Subject (0*-- ) Grade ( -- 0*) Student;
     Teacher (0* -"teaches"- 1) Subject;
     person (<|--) Teacher;
     person (<|--) Student;

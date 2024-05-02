@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ABRE_PAR ASPAS CARDINALIDADE DIAGRAMA DOIS_PONTOS FECHA_PAR GERAL LIST MAIORQ MENORQ PALAVRA_CLASSES PALAVRA_RELACOES PONTO_VIRGULA PRIVACIDADE RETA TIPO TIPOS_RELACAO TITULO VARIAVELprogram : comeco iniRelacoes iniClassescomeco : TITULO DOIS_PONTOS VARIAVEL DIAGRAMA GERAL DOIS_PONTOSiniRelacoes : MENORQ MENORQ PALAVRA_RELACOES relacoes MAIORQ MAIORQrelacoes : relacao\n    | relacoes relacaorelacao : VARIAVEL ABRE_PAR interno_relacao FECHA_PAR VARIAVEL PONTO_VIRGULA\n    interno_relacao : CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS TIPOS_RELACAO CARDINALIDADE\n                    | CARDINALIDADE TIPOS_RELACAO TIPOS_RELACAO CARDINALIDADE\n                    | TIPOS_RELACAO TIPOS_RELACAO\n    iniClasses : MENORQ MENORQ PALAVRA_CLASSES classes MAIORQ MAIORQclasses : classe\n    | classes classeclasse : VARIAVEL ABRE_PAR interno_classe FECHA_PAR PONTO_VIRGULA\n    interno_classe : atributos metodos_opt\n                   | metodos\n                   | empty\n    \n    metodos_opt : RETA metodos\n                | empty\n    empty :metodos : metodo\n    | metodos metodometodo : PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA\n              | PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULAatributos : atributo\n    | atributos atributoatributo : PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA\n                | PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA'
+_lr_signature = 'ABRE_PAR DIAGRAMA DOIS_PONTOS FECHA_PAR GERAL LIST MAIORQ MENORQ PALAVRA_CLASSES PALAVRA_RELACOES PONTO_VIRGULA PRIVACIDADE RETA TIPO TITULO VARIAVELprogram : comeco iniClassescomeco : TITULO DOIS_PONTOS VARIAVEL DIAGRAMA GERAL DOIS_PONTOSiniClasses : MENORQ MENORQ PALAVRA_CLASSES classes MAIORQ MAIORQclasses : classe\n    | classes classeclasse : VARIAVEL ABRE_PAR interno_classe FECHA_PAR PONTO_VIRGULA\n    interno_classe : atributos metodos_opt\n                   | metodos\n                   | empty\n    \n    metodos_opt : RETA metodos\n                | empty\n    empty :metodos : metodo\n    | metodos metodometodo : PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA\n              | PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULAatributos : atributo\n    | atributos atributoatributo : PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA\n                | PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA'
     
-_lr_action_items = {'TITULO':([0,],[3,]),'$end':([1,7,33,],[0,-1,-10,]),'MENORQ':([2,4,5,8,25,29,54,],[5,8,9,11,-2,-3,62,]),'DOIS_PONTOS':([3,18,52,74,],[6,25,60,77,]),'VARIAVEL':([6,12,14,15,16,19,20,23,27,40,41,51,57,58,60,61,62,63,77,],[10,17,21,17,-4,21,-11,-5,-12,53,55,53,65,-13,66,67,69,-6,79,]),'PALAVRA_RELACOES':([9,],[12,]),'DIAGRAMA':([10,],[13,]),'PALAVRA_CLASSES':([11,],[14,]),'GERAL':([13,],[18,]),'MAIORQ':([15,16,19,20,22,23,26,27,58,63,69,],[22,-4,26,-11,29,-5,33,-12,-13,-6,74,]),'ABRE_PAR':([17,21,53,],[24,28,61,]),'CARDINALIDADE':([24,56,75,],[31,64,78,]),'TIPOS_RELACAO':([24,31,32,42,70,],[32,42,43,56,75,]),'FECHA_PAR':([28,30,34,35,36,37,38,39,43,45,46,48,50,59,61,64,67,71,73,76,78,80,],[-19,41,44,-19,-15,-16,-24,-20,-9,-14,-25,-18,-21,-17,68,-8,72,-26,-22,-23,-7,-27,]),'PRIVACIDADE':([28,35,36,38,39,46,47,50,59,71,73,76,80,],[40,49,51,-24,-20,-25,51,-21,51,-26,-22,-23,-27,]),'RETA':([35,38,46,71,80,],[47,-24,-25,-26,-27,]),'TIPO':([40,49,],[52,52,]),'LIST':([40,49,],[54,54,]),'ASPAS':([42,65,],[57,70,]),'PONTO_VIRGULA':([44,55,66,68,72,79,],[58,63,71,73,76,80,]),}
+_lr_action_items = {'TITULO':([0,],[3,]),'$end':([1,4,19,],[0,-1,-3,]),'MENORQ':([2,5,18,37,],[5,7,-2,42,]),'DOIS_PONTOS':([3,14,35,50,],[6,18,40,52,]),'VARIAVEL':([6,9,11,12,16,26,34,38,40,41,42,52,],[8,13,13,-4,-5,36,36,-6,43,44,46,53,]),'PALAVRA_CLASSES':([7,],[9,]),'DIAGRAMA':([8,],[10,]),'GERAL':([10,],[14,]),'MAIORQ':([11,12,15,16,38,46,],[15,-4,19,-5,-6,50,]),'ABRE_PAR':([13,36,],[17,41,]),'FECHA_PAR':([17,20,21,22,23,24,25,28,29,31,33,39,41,44,47,49,51,54,],[-12,27,-12,-8,-9,-17,-13,-7,-18,-11,-14,-10,45,48,-19,-15,-16,-20,]),'PRIVACIDADE':([17,21,22,24,25,29,30,33,39,47,49,51,54,],[26,32,34,-17,-13,-18,34,-14,34,-19,-15,-16,-20,]),'RETA':([21,24,29,47,54,],[30,-17,-18,-19,-20,]),'TIPO':([26,32,],[35,35,]),'LIST':([26,32,],[37,37,]),'PONTO_VIRGULA':([27,43,45,48,53,],[38,47,49,51,54,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'comeco':([0,],[2,]),'iniRelacoes':([2,],[4,]),'iniClasses':([4,],[7,]),'relacoes':([12,],[15,]),'relacao':([12,15,],[16,23,]),'classes':([14,],[19,]),'classe':([14,19,],[20,27,]),'interno_relacao':([24,],[30,]),'interno_classe':([28,],[34,]),'atributos':([28,],[35,]),'metodos':([28,47,],[36,59,]),'empty':([28,35,],[37,48,]),'atributo':([28,35,],[38,46,]),'metodo':([28,36,47,59,],[39,50,39,50,]),'metodos_opt':([35,],[45,]),}
+_lr_goto_items = {'program':([0,],[1,]),'comeco':([0,],[2,]),'iniClasses':([2,],[4,]),'classes':([9,],[11,]),'classe':([9,11,],[12,16,]),'interno_classe':([17,],[20,]),'atributos':([17,],[21,]),'metodos':([17,30,],[22,39,]),'empty':([17,21,],[23,31,]),'atributo':([17,21,],[24,29,]),'metodo':([17,22,30,39,],[25,33,25,33,]),'metodos_opt':([21,],[28,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,31 +27,24 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> comeco iniRelacoes iniClasses','program',3,'p_def_program','sagui_parser.py',216),
-  ('comeco -> TITULO DOIS_PONTOS VARIAVEL DIAGRAMA GERAL DOIS_PONTOS','comeco',6,'p_def_comeco','sagui_parser.py',221),
-  ('iniRelacoes -> MENORQ MENORQ PALAVRA_RELACOES relacoes MAIORQ MAIORQ','iniRelacoes',6,'p_def_iniRelacoes','sagui_parser.py',225),
-  ('relacoes -> relacao','relacoes',1,'p_def_relacoes','sagui_parser.py',229),
-  ('relacoes -> relacoes relacao','relacoes',2,'p_def_relacoes','sagui_parser.py',230),
-  ('relacao -> VARIAVEL ABRE_PAR interno_relacao FECHA_PAR VARIAVEL PONTO_VIRGULA','relacao',6,'p_def_relacao','sagui_parser.py',237),
-  ('interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS TIPOS_RELACAO CARDINALIDADE','interno_relacao',7,'p_interno_relacao','sagui_parser.py',242),
-  ('interno_relacao -> CARDINALIDADE TIPOS_RELACAO TIPOS_RELACAO CARDINALIDADE','interno_relacao',4,'p_interno_relacao','sagui_parser.py',243),
-  ('interno_relacao -> TIPOS_RELACAO TIPOS_RELACAO','interno_relacao',2,'p_interno_relacao','sagui_parser.py',244),
-  ('iniClasses -> MENORQ MENORQ PALAVRA_CLASSES classes MAIORQ MAIORQ','iniClasses',6,'p_def_iniClasses','sagui_parser.py',262),
-  ('classes -> classe','classes',1,'p_def_classes','sagui_parser.py',266),
-  ('classes -> classes classe','classes',2,'p_def_classes','sagui_parser.py',267),
-  ('classe -> VARIAVEL ABRE_PAR interno_classe FECHA_PAR PONTO_VIRGULA','classe',5,'p_def_classe','sagui_parser.py',274),
-  ('interno_classe -> atributos metodos_opt','interno_classe',2,'p_interno_classe','sagui_parser.py',279),
-  ('interno_classe -> metodos','interno_classe',1,'p_interno_classe','sagui_parser.py',280),
-  ('interno_classe -> empty','interno_classe',1,'p_interno_classe','sagui_parser.py',281),
-  ('metodos_opt -> RETA metodos','metodos_opt',2,'p_metodos_opt','sagui_parser.py',292),
-  ('metodos_opt -> empty','metodos_opt',1,'p_metodos_opt','sagui_parser.py',293),
-  ('empty -> <empty>','empty',0,'p_empty','sagui_parser.py',301),
-  ('metodos -> metodo','metodos',1,'p_def_metodos','sagui_parser.py',305),
-  ('metodos -> metodos metodo','metodos',2,'p_def_metodos','sagui_parser.py',306),
-  ('metodo -> PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA','metodo',5,'p_def_metodo','sagui_parser.py',313),
-  ('metodo -> PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA','metodo',6,'p_def_metodo','sagui_parser.py',314),
-  ('atributos -> atributo','atributos',1,'p_def_atributos','sagui_parser.py',321),
-  ('atributos -> atributos atributo','atributos',2,'p_def_atributos','sagui_parser.py',322),
-  ('atributo -> PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA','atributo',5,'p_def_atributo','sagui_parser.py',329),
-  ('atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA','atributo',8,'p_def_atributo','sagui_parser.py',330),
+  ('program -> comeco iniClasses','program',2,'p_def_program','parser_classe.py',232),
+  ('comeco -> TITULO DOIS_PONTOS VARIAVEL DIAGRAMA GERAL DOIS_PONTOS','comeco',6,'p_def_comeco','parser_classe.py',237),
+  ('iniClasses -> MENORQ MENORQ PALAVRA_CLASSES classes MAIORQ MAIORQ','iniClasses',6,'p_def_iniClasses','parser_classe.py',278),
+  ('classes -> classe','classes',1,'p_def_classes','parser_classe.py',282),
+  ('classes -> classes classe','classes',2,'p_def_classes','parser_classe.py',283),
+  ('classe -> VARIAVEL ABRE_PAR interno_classe FECHA_PAR PONTO_VIRGULA','classe',5,'p_def_classe','parser_classe.py',290),
+  ('interno_classe -> atributos metodos_opt','interno_classe',2,'p_interno_classe','parser_classe.py',295),
+  ('interno_classe -> metodos','interno_classe',1,'p_interno_classe','parser_classe.py',296),
+  ('interno_classe -> empty','interno_classe',1,'p_interno_classe','parser_classe.py',297),
+  ('metodos_opt -> RETA metodos','metodos_opt',2,'p_metodos_opt','parser_classe.py',308),
+  ('metodos_opt -> empty','metodos_opt',1,'p_metodos_opt','parser_classe.py',309),
+  ('empty -> <empty>','empty',0,'p_empty','parser_classe.py',317),
+  ('metodos -> metodo','metodos',1,'p_def_metodos','parser_classe.py',321),
+  ('metodos -> metodos metodo','metodos',2,'p_def_metodos','parser_classe.py',322),
+  ('metodo -> PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA','metodo',5,'p_def_metodo','parser_classe.py',329),
+  ('metodo -> PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA','metodo',6,'p_def_metodo','parser_classe.py',330),
+  ('atributos -> atributo','atributos',1,'p_def_atributos','parser_classe.py',337),
+  ('atributos -> atributos atributo','atributos',2,'p_def_atributos','parser_classe.py',338),
+  ('atributo -> PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA','atributo',5,'p_def_atributo','parser_classe.py',345),
+  ('atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA','atributo',8,'p_def_atributo','parser_classe.py',346),
 ]

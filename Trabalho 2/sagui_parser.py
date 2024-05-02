@@ -1,31 +1,7 @@
-import logging
-last_error_line = 0
-last_column_line = 0
-
-logging.basicConfig(
-    level=logging.DEBUG,
-    filename="parser.log",
-    filemode="w",
-    format="%(filename)10s:%(lineno)4d:%(message)s",
-)
-log = logging.getLogger()
-
-root = None
-
-err = ""
-
 tokens = (
     'TITULO',  'DIAGRAMA', 'GERAL', 'PALAVRA_CLASSES', 'PALAVRA_RELACOES',
     'ABRE_PAR', 'FECHA_PAR', 'RETA', 'MAIORQ', 'MENORQ', 'DOIS_PONTOS', 'PONTO_VIRGULA', 'VARIAVEL',
     'TIPO', 'LIST', 'PRIVACIDADE', 'CARDINALIDADE', 'TIPOS_RELACAO', 'ASPAS'
-    # 'CARD_UM', 'CARD_VARIOS', 'CARD_ZERO_UM', 'CARD_ZERO_VARIOS', 'CARD_UM_VARIOS',
-    # 'REL_SOLIDA', 'REL_TRACEJADA', 
-    # 'REL_HERANCA_ESQ', 'REL_HERANCA_DIR',
-    # 'REL_COMPOSICAO_ESQ', 'REL_COMPOSICAO_DIR', 
-    # 'REL_AGREGRACAO_ESQ', 'REL_AGREGACAO_DIR',
-    # 'REL_ASSOCIACAO_ESQ', 'REL_ASSOCIACAO_DIR', 
-    # 'REL_DEPENDENCIA_ESQ', 'REL_DEPENDENCIA_DIR',
-    # 'REL_REALIZACAO_ESQ', 'REL_REALIZACAO_DIR', 
 )
 literals = ",();><|-*"
 
@@ -119,6 +95,7 @@ def t_CARD_UM_VARIOS(t):
 def t_CARD_ZERO_VARIOS (t):
     r'0\*'
     t.type = "CARDINALIDADE"
+    t.value = "0..*"
     return t
 
 def t_CARD_ZERO_UM(t): 
@@ -226,7 +203,6 @@ import ply.lex as lex
 lexer = lex.lex()
 
 # Parsing rules
-# Expansão das regras de análise sintática
 
 def p_def_program(p):
     'program : comeco iniRelacoes iniClasses'
@@ -262,7 +238,7 @@ def p_interno_relacao(p):
     if len(p) == 5:
         p[0] = '\"' + p[1] + '\" ' + p[2] + ' \"' + p[3] + '\"' 
     elif len(p)==3:
-        p[0] = p[1]
+        p[0] = p[1]+p[2]
     else:
         p[0] = '\"' + p[1] + '\" ' + p[2] + p[6] + ' \"' + p[7] + '\"'  
         
@@ -297,11 +273,11 @@ def p_interno_classe(p):
                    | empty
     '''
     if len(p) == 3:
-        p[0] = p[1] + '\n' + p[2] if p[2] else p[1]  # Concatena atributos e métodos se ambos existirem
+        p[0] = p[1] + '\n' + p[2] if p[2] else p[1]  
     elif len(p) == 2:
-        p[0] = p[1]  # Apenas métodos ou apenas atributos
+        p[0] = p[1]  
     else:
-        p[0] = ''    # Classe vazia
+        p[0] = ''    
 
 def p_metodos_opt(p):
     '''
@@ -309,9 +285,9 @@ def p_metodos_opt(p):
                 | empty
     '''
     if len(p) == 3:
-        p[0] = p[2]  # Retorna os métodos se eles existirem
+        p[0] = p[2]  
     else:
-        p[0] = ''    # Retorna string vazia se não existirem métodos
+        p[0] = ''    
 
 def p_empty(p):
     'empty :'
@@ -365,19 +341,3 @@ fp = open(sys.argv[1])
 contents=fp.read()
 
 result=parser.parse(contents) 
-#print("digraph{")
-#print("}")
-
-
-#Ao inves da linha 47 e 49, é possivel tem statements vazios
-
-# def p_def_def(t):
-#   'def: begin relacoes end'
-
-#def begin(t):
-#   'begin : '
-#    print("digraph{")
-
-#def end(t):
-#   'end : '
-#    print("}")

@@ -1,4 +1,4 @@
-TITULO: AOBA
+TITULO: IPB
 DIAGRAMA GERAL:
 <<CLASSES	
     School(
@@ -13,5 +13,23 @@ DIAGRAMA GERAL:
         PRI STRING: name;
         PRI LIST<Student>: studentsCollection;
         PRI LIST<Subject>: subjectsCollection;
+    );
+    Teacher(
+        PRI LIST<Subject>: subjectCollection;
+    );
+    Student(
+        PRI INT: number;
+        PRI STRING: course_name;
+        PRI LIST<Grade>: gradesCollection;
+        );
+    Subject(
+        PRI STRING: name; 
+        PRI STRING: course_name;
+        PRI STRING: teacher_name;
+        PRI INT: code;
+        PRI LIST<Grade>: gradesCollection;
+    );
+    person(
+        PRI STRING: name;
     );
 >>

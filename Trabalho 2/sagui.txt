@@ -10,11 +10,19 @@ DIAGRAMA GERAL:
     School (1* --> 1*) Teacher;
 >>
 <<CLASSES
+    Grade(
+        PRI INT : value;
+        PRI INT : subjectNcode;
+        PRI INT : studentNumber;
+        
+        PUB INT : getValue();
+        PUB VOID : setValue();
+    );
     School(
         PRI STRING: name;
         PRI LIST<Course>: coursesCollection;
         PRI LIST<Teacher>: teachersCollection;
-        |
+        
         PUB addCourse(); 
         PUB addTeacher();
     );
@@ -22,14 +30,6 @@ DIAGRAMA GERAL:
         PRI STRING: name;
         PRI LIST<Student>: studentsCollection;
         PRI LIST<Subject>: subjectsCollection;
-    );
-    Grade(
-        PRI INT: value;
-        PRI INT: subject_code;
-        PRI INT: student_number;
-        |
-        PUB INT: getValue();
-        PUB VOID: setValue();
     );
     Teacher(
         PRI LIST<Subject>: subjectCollection;

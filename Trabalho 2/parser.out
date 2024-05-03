@@ -19,13 +19,13 @@ Rule 13    classe -> VARIAVEL ABRE_PAR interno_classe FECHA_PAR PONTO_VIRGULA
 Rule 14    interno_classe -> atributos metodos_opt
 Rule 15    interno_classe -> metodos
 Rule 16    interno_classe -> empty
-Rule 17    metodos_opt -> RETA metodos
+Rule 17    metodos_opt -> metodos
 Rule 18    metodos_opt -> empty
 Rule 19    empty -> <empty>
 Rule 20    metodos -> metodo
 Rule 21    metodos -> metodos metodo
-Rule 22    metodo -> PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
-Rule 23    metodo -> PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+Rule 22    metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+Rule 23    metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
 Rule 24    atributos -> atributo
 Rule 25    atributos -> atributos atributo
 Rule 26    atributo -> PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA
@@ -47,8 +47,7 @@ PALAVRA_CLASSES      : 10
 PALAVRA_RELACOES     : 3
 PONTO_VIRGULA        : 6 13 22 23 26 27
 PRIVACIDADE          : 22 23 26 27
-RETA                 : 17
-TIPO                 : 26
+TIPO                 : 22 23 26
 TIPOS_RELACAO        : 7 7 8 8 9 9
 TITULO               : 2
 VARIAVEL             : 2 6 6 7 13 22 23 23 26 27 27
@@ -318,8 +317,8 @@ state 28
     (19) empty -> .
     (26) atributo -> . PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA
     (27) atributo -> . PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
-    (22) metodo -> . PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
-    (23) metodo -> . PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+    (22) metodo -> . PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> . PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
 
     FECHA_PAR       reduce using rule 19 (empty -> .)
     PRIVACIDADE     shift and go to state 40
@@ -378,31 +377,36 @@ state 35
 
     (14) interno_classe -> atributos . metodos_opt
     (25) atributos -> atributos . atributo
-    (17) metodos_opt -> . RETA metodos
+    (17) metodos_opt -> . metodos
     (18) metodos_opt -> . empty
     (26) atributo -> . PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA
     (27) atributo -> . PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
+    (20) metodos -> . metodo
+    (21) metodos -> . metodos metodo
     (19) empty -> .
+    (22) metodo -> . PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> . PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
 
-    RETA            shift and go to state 47
-    PRIVACIDADE     shift and go to state 49
+    PRIVACIDADE     shift and go to state 40
     FECHA_PAR       reduce using rule 19 (empty -> .)
 
     metodos_opt                    shift and go to state 45
     atributo                       shift and go to state 46
+    metodos                        shift and go to state 47
     empty                          shift and go to state 48
+    metodo                         shift and go to state 39
 
 state 36
 
     (15) interno_classe -> metodos .
     (21) metodos -> metodos . metodo
-    (22) metodo -> . PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
-    (23) metodo -> . PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+    (22) metodo -> . PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> . PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
 
     FECHA_PAR       reduce using rule 15 (interno_classe -> metodos .)
-    PRIVACIDADE     shift and go to state 51
+    PRIVACIDADE     shift and go to state 50
 
-    metodo                         shift and go to state 50
+    metodo                         shift and go to state 49
 
 state 37
 
@@ -415,7 +419,6 @@ state 38
 
     (24) atributos -> atributo .
 
-    RETA            reduce using rule 24 (atributos -> atributo .)
     PRIVACIDADE     reduce using rule 24 (atributos -> atributo .)
     FECHA_PAR       reduce using rule 24 (atributos -> atributo .)
 
@@ -432,19 +435,18 @@ state 40
 
     (26) atributo -> PRIVACIDADE . TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA
     (27) atributo -> PRIVACIDADE . LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
-    (22) metodo -> PRIVACIDADE . VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
-    (23) metodo -> PRIVACIDADE . VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+    (22) metodo -> PRIVACIDADE . TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> PRIVACIDADE . TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
 
-    TIPO            shift and go to state 52
-    LIST            shift and go to state 54
-    VARIAVEL        shift and go to state 53
+    TIPO            shift and go to state 51
+    LIST            shift and go to state 52
 
 
 state 41
 
     (6) relacao -> VARIAVEL ABRE_PAR interno_relacao FECHA_PAR . VARIAVEL PONTO_VIRGULA
 
-    VARIAVEL        shift and go to state 55
+    VARIAVEL        shift and go to state 53
 
 
 state 42
@@ -452,8 +454,8 @@ state 42
     (7) interno_relacao -> CARDINALIDADE TIPOS_RELACAO . ASPAS VARIAVEL ASPAS TIPOS_RELACAO CARDINALIDADE
     (8) interno_relacao -> CARDINALIDADE TIPOS_RELACAO . TIPOS_RELACAO CARDINALIDADE
 
-    ASPAS           shift and go to state 57
-    TIPOS_RELACAO   shift and go to state 56
+    ASPAS           shift and go to state 55
+    TIPOS_RELACAO   shift and go to state 54
 
 
 state 43
@@ -467,7 +469,7 @@ state 44
 
     (13) classe -> VARIAVEL ABRE_PAR interno_classe FECHA_PAR . PONTO_VIRGULA
 
-    PONTO_VIRGULA   shift and go to state 58
+    PONTO_VIRGULA   shift and go to state 56
 
 
 state 45
@@ -481,23 +483,21 @@ state 46
 
     (25) atributos -> atributos atributo .
 
-    RETA            reduce using rule 25 (atributos -> atributos atributo .)
     PRIVACIDADE     reduce using rule 25 (atributos -> atributos atributo .)
     FECHA_PAR       reduce using rule 25 (atributos -> atributos atributo .)
 
 
 state 47
 
-    (17) metodos_opt -> RETA . metodos
-    (20) metodos -> . metodo
-    (21) metodos -> . metodos metodo
-    (22) metodo -> . PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
-    (23) metodo -> . PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+    (17) metodos_opt -> metodos .
+    (21) metodos -> metodos . metodo
+    (22) metodo -> . PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> . PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
 
-    PRIVACIDADE     shift and go to state 51
+    FECHA_PAR       reduce using rule 17 (metodos_opt -> metodos .)
+    PRIVACIDADE     shift and go to state 50
 
-    metodos                        shift and go to state 59
-    metodo                         shift and go to state 39
+    metodo                         shift and go to state 49
 
 state 48
 
@@ -508,73 +508,59 @@ state 48
 
 state 49
 
-    (26) atributo -> PRIVACIDADE . TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA
-    (27) atributo -> PRIVACIDADE . LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
-
-    TIPO            shift and go to state 52
-    LIST            shift and go to state 54
-
-
-state 50
-
     (21) metodos -> metodos metodo .
 
     PRIVACIDADE     reduce using rule 21 (metodos -> metodos metodo .)
     FECHA_PAR       reduce using rule 21 (metodos -> metodos metodo .)
 
 
+state 50
+
+    (22) metodo -> PRIVACIDADE . TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> PRIVACIDADE . TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+
+    TIPO            shift and go to state 57
+
+
 state 51
 
-    (22) metodo -> PRIVACIDADE . VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
-    (23) metodo -> PRIVACIDADE . VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+    (26) atributo -> PRIVACIDADE TIPO . DOIS_PONTOS VARIAVEL PONTO_VIRGULA
+    (22) metodo -> PRIVACIDADE TIPO . VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> PRIVACIDADE TIPO . VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
 
-    VARIAVEL        shift and go to state 53
+    DOIS_PONTOS     shift and go to state 58
+    VARIAVEL        shift and go to state 59
 
 
 state 52
 
-    (26) atributo -> PRIVACIDADE TIPO . DOIS_PONTOS VARIAVEL PONTO_VIRGULA
+    (27) atributo -> PRIVACIDADE LIST . MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
 
-    DOIS_PONTOS     shift and go to state 60
+    MENORQ          shift and go to state 60
 
 
 state 53
 
-    (22) metodo -> PRIVACIDADE VARIAVEL . ABRE_PAR FECHA_PAR PONTO_VIRGULA
-    (23) metodo -> PRIVACIDADE VARIAVEL . ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+    (6) relacao -> VARIAVEL ABRE_PAR interno_relacao FECHA_PAR VARIAVEL . PONTO_VIRGULA
 
-    ABRE_PAR        shift and go to state 61
+    PONTO_VIRGULA   shift and go to state 61
 
 
 state 54
 
-    (27) atributo -> PRIVACIDADE LIST . MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
+    (8) interno_relacao -> CARDINALIDADE TIPOS_RELACAO TIPOS_RELACAO . CARDINALIDADE
 
-    MENORQ          shift and go to state 62
+    CARDINALIDADE   shift and go to state 62
 
 
 state 55
 
-    (6) relacao -> VARIAVEL ABRE_PAR interno_relacao FECHA_PAR VARIAVEL . PONTO_VIRGULA
+    (7) interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS . VARIAVEL ASPAS TIPOS_RELACAO CARDINALIDADE
 
-    PONTO_VIRGULA   shift and go to state 63
+    VARIAVEL        shift and go to state 63
 
 
 state 56
-
-    (8) interno_relacao -> CARDINALIDADE TIPOS_RELACAO TIPOS_RELACAO . CARDINALIDADE
-
-    CARDINALIDADE   shift and go to state 64
-
-
-state 57
-
-    (7) interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS . VARIAVEL ASPAS TIPOS_RELACAO CARDINALIDADE
-
-    VARIAVEL        shift and go to state 65
-
-
-state 58
 
     (13) classe -> VARIAVEL ABRE_PAR interno_classe FECHA_PAR PONTO_VIRGULA .
 
@@ -582,42 +568,37 @@ state 58
     VARIAVEL        reduce using rule 13 (classe -> VARIAVEL ABRE_PAR interno_classe FECHA_PAR PONTO_VIRGULA .)
 
 
+state 57
+
+    (22) metodo -> PRIVACIDADE TIPO . VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> PRIVACIDADE TIPO . VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+
+    VARIAVEL        shift and go to state 59
+
+
+state 58
+
+    (26) atributo -> PRIVACIDADE TIPO DOIS_PONTOS . VARIAVEL PONTO_VIRGULA
+
+    VARIAVEL        shift and go to state 64
+
+
 state 59
 
-    (17) metodos_opt -> RETA metodos .
-    (21) metodos -> metodos . metodo
-    (22) metodo -> . PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
-    (23) metodo -> . PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
+    (22) metodo -> PRIVACIDADE TIPO VARIAVEL . ABRE_PAR FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> PRIVACIDADE TIPO VARIAVEL . ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA
 
-    FECHA_PAR       reduce using rule 17 (metodos_opt -> RETA metodos .)
-    PRIVACIDADE     shift and go to state 51
+    ABRE_PAR        shift and go to state 65
 
-    metodo                         shift and go to state 50
 
 state 60
 
-    (26) atributo -> PRIVACIDADE TIPO DOIS_PONTOS . VARIAVEL PONTO_VIRGULA
+    (27) atributo -> PRIVACIDADE LIST MENORQ . VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
 
     VARIAVEL        shift and go to state 66
 
 
 state 61
-
-    (22) metodo -> PRIVACIDADE VARIAVEL ABRE_PAR . FECHA_PAR PONTO_VIRGULA
-    (23) metodo -> PRIVACIDADE VARIAVEL ABRE_PAR . VARIAVEL FECHA_PAR PONTO_VIRGULA
-
-    FECHA_PAR       shift and go to state 68
-    VARIAVEL        shift and go to state 67
-
-
-state 62
-
-    (27) atributo -> PRIVACIDADE LIST MENORQ . VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
-
-    VARIAVEL        shift and go to state 69
-
-
-state 63
 
     (6) relacao -> VARIAVEL ABRE_PAR interno_relacao FECHA_PAR VARIAVEL PONTO_VIRGULA .
 
@@ -625,127 +606,134 @@ state 63
     VARIAVEL        reduce using rule 6 (relacao -> VARIAVEL ABRE_PAR interno_relacao FECHA_PAR VARIAVEL PONTO_VIRGULA .)
 
 
-state 64
+state 62
 
     (8) interno_relacao -> CARDINALIDADE TIPOS_RELACAO TIPOS_RELACAO CARDINALIDADE .
 
     FECHA_PAR       reduce using rule 8 (interno_relacao -> CARDINALIDADE TIPOS_RELACAO TIPOS_RELACAO CARDINALIDADE .)
 
 
-state 65
+state 63
 
     (7) interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL . ASPAS TIPOS_RELACAO CARDINALIDADE
 
-    ASPAS           shift and go to state 70
+    ASPAS           shift and go to state 67
+
+
+state 64
+
+    (26) atributo -> PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL . PONTO_VIRGULA
+
+    PONTO_VIRGULA   shift and go to state 68
+
+
+state 65
+
+    (22) metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR . FECHA_PAR PONTO_VIRGULA
+    (23) metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR . VARIAVEL FECHA_PAR PONTO_VIRGULA
+
+    FECHA_PAR       shift and go to state 70
+    VARIAVEL        shift and go to state 69
 
 
 state 66
 
-    (26) atributo -> PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL . PONTO_VIRGULA
+    (27) atributo -> PRIVACIDADE LIST MENORQ VARIAVEL . MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
 
-    PONTO_VIRGULA   shift and go to state 71
+    MAIORQ          shift and go to state 71
 
 
 state 67
 
-    (23) metodo -> PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL . FECHA_PAR PONTO_VIRGULA
+    (7) interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS . TIPOS_RELACAO CARDINALIDADE
 
-    FECHA_PAR       shift and go to state 72
+    TIPOS_RELACAO   shift and go to state 72
 
 
 state 68
 
-    (22) metodo -> PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR . PONTO_VIRGULA
-
-    PONTO_VIRGULA   shift and go to state 73
-
-
-state 69
-
-    (27) atributo -> PRIVACIDADE LIST MENORQ VARIAVEL . MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA
-
-    MAIORQ          shift and go to state 74
-
-
-state 70
-
-    (7) interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS . TIPOS_RELACAO CARDINALIDADE
-
-    TIPOS_RELACAO   shift and go to state 75
-
-
-state 71
-
     (26) atributo -> PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA .
 
-    RETA            reduce using rule 26 (atributo -> PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA .)
     PRIVACIDADE     reduce using rule 26 (atributo -> PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA .)
     FECHA_PAR       reduce using rule 26 (atributo -> PRIVACIDADE TIPO DOIS_PONTOS VARIAVEL PONTO_VIRGULA .)
 
 
+state 69
+
+    (23) metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL . FECHA_PAR PONTO_VIRGULA
+
+    FECHA_PAR       shift and go to state 73
+
+
+state 70
+
+    (22) metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR . PONTO_VIRGULA
+
+    PONTO_VIRGULA   shift and go to state 74
+
+
+state 71
+
+    (27) atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ . DOIS_PONTOS VARIAVEL PONTO_VIRGULA
+
+    DOIS_PONTOS     shift and go to state 75
+
+
 state 72
 
-    (23) metodo -> PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR . PONTO_VIRGULA
+    (7) interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS TIPOS_RELACAO . CARDINALIDADE
 
-    PONTO_VIRGULA   shift and go to state 76
+    CARDINALIDADE   shift and go to state 76
 
 
 state 73
 
-    (22) metodo -> PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA .
+    (23) metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR . PONTO_VIRGULA
 
-    PRIVACIDADE     reduce using rule 22 (metodo -> PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA .)
-    FECHA_PAR       reduce using rule 22 (metodo -> PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA .)
+    PONTO_VIRGULA   shift and go to state 77
 
 
 state 74
 
-    (27) atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ . DOIS_PONTOS VARIAVEL PONTO_VIRGULA
+    (22) metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA .
 
-    DOIS_PONTOS     shift and go to state 77
+    PRIVACIDADE     reduce using rule 22 (metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA .)
+    FECHA_PAR       reduce using rule 22 (metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA .)
 
 
 state 75
 
-    (7) interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS TIPOS_RELACAO . CARDINALIDADE
+    (27) atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS . VARIAVEL PONTO_VIRGULA
 
-    CARDINALIDADE   shift and go to state 78
+    VARIAVEL        shift and go to state 78
 
 
 state 76
-
-    (23) metodo -> PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA .
-
-    PRIVACIDADE     reduce using rule 23 (metodo -> PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA .)
-    FECHA_PAR       reduce using rule 23 (metodo -> PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA .)
-
-
-state 77
-
-    (27) atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS . VARIAVEL PONTO_VIRGULA
-
-    VARIAVEL        shift and go to state 79
-
-
-state 78
 
     (7) interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS TIPOS_RELACAO CARDINALIDADE .
 
     FECHA_PAR       reduce using rule 7 (interno_relacao -> CARDINALIDADE TIPOS_RELACAO ASPAS VARIAVEL ASPAS TIPOS_RELACAO CARDINALIDADE .)
 
 
-state 79
+state 77
+
+    (23) metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA .
+
+    PRIVACIDADE     reduce using rule 23 (metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA .)
+    FECHA_PAR       reduce using rule 23 (metodo -> PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA .)
+
+
+state 78
 
     (27) atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL . PONTO_VIRGULA
 
-    PONTO_VIRGULA   shift and go to state 80
+    PONTO_VIRGULA   shift and go to state 79
 
 
-state 80
+state 79
 
     (27) atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA .
 
-    RETA            reduce using rule 27 (atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA .)
     PRIVACIDADE     reduce using rule 27 (atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA .)
     FECHA_PAR       reduce using rule 27 (atributo -> PRIVACIDADE LIST MENORQ VARIAVEL MAIORQ DOIS_PONTOS VARIAVEL PONTO_VIRGULA .)
 

@@ -1,9 +1,18 @@
 tokens = (
     'TITULO',  'DIAGRAMA', 'GERAL', 'PALAVRA_CLASSES', 'PALAVRA_RELACOES',
-    'ABRE_PAR', 'FECHA_PAR', 'RETA', 'MAIORQ', 'MENORQ', 'DOIS_PONTOS', 'PONTO_VIRGULA', 'VARIAVEL',
+    'ABRE_PAR', 'FECHA_PAR', 'MAIORQ', 'MENORQ', 'DOIS_PONTOS', 'PONTO_VIRGULA', 'VARIAVEL',
     'TIPO', 'LIST', 'PRIVACIDADE', 'CARDINALIDADE', 'TIPOS_RELACAO', 'ASPAS'
 )
-literals = ",();><|-*"
+literals = "\,\(\)\;\>\<\|\-\:\*"
+
+t_DOIS_PONTOS = r'\:'
+t_PONTO_VIRGULA = r'\;'
+#t_RETA = r'\|'
+t_MAIORQ = r'>'
+t_MENORQ = r'<'
+t_ABRE_PAR = r'\('
+t_FECHA_PAR = r'\)'
+t_ignore = " \t\n"
 
 #AS PALAVRAS RESERVADAS DEVEM SER FEITAS PRIMEIRO
 def t_ASPAS (t):
@@ -82,13 +91,14 @@ def t_PAC(t):
     t.value = "~"
     return t
 
-def t_CARD_UM(t): 
-    r'1'
-    t.type = "CARDINALIDADE"
-    return t
 
 def t_CARD_UM_VARIOS(t): 
     r'1\*'
+    t.type = "CARDINALIDADE"
+    return t
+
+def t_CARD_UM(t): 
+    r'1'
     t.type = "CARDINALIDADE"
     return t
 
@@ -179,18 +189,10 @@ def t_REL_TRACEJADA(t):
     return t
 
 def t_VARIAVEL(t):
-    r'[a-zA-Z_0-9]+'
+    r'[a-zA-Z\_0-9]+'
     return t
 
 
-t_DOIS_PONTOS = r':'
-t_PONTO_VIRGULA = r'\;'
-t_RETA = r'\|'
-t_MAIORQ = r'>'
-t_MENORQ = r'<'
-t_ABRE_PAR = r'\('
-t_FECHA_PAR = r'\)'
-t_ignore = " \t\n"
 
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
@@ -279,9 +281,10 @@ def p_interno_classe(p):
     else:
         p[0] = ''    
 
+
 def p_metodos_opt(p):
     '''
-    metodos_opt : RETA metodos
+    metodos_opt : metodos
                 | empty
     '''
     if len(p) == 3:
@@ -302,12 +305,13 @@ def p_def_metodos(p):
         p[0] = p[1] + '\n' + p[2]
 
 def p_def_metodo(p):
-    '''metodo : PRIVACIDADE VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
-              | PRIVACIDADE VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA'''
+    '''metodo : PRIVACIDADE TIPO VARIAVEL ABRE_PAR FECHA_PAR PONTO_VIRGULA
+              | PRIVACIDADE TIPO VARIAVEL ABRE_PAR VARIAVEL FECHA_PAR PONTO_VIRGULA'''
     if len(p)==6:
         p[0] = f"{p[1]}{p[2]}();\n"
     else:
         p[0] = f"{p[1]}{p[2]}({p[4]});\n" 
+
 
 def p_def_atributos(p):
     '''atributos : atributo
@@ -324,6 +328,7 @@ def p_def_atributo(p):
         p[0] = f"{p[1]}{p[2]} {p[4]};\n"
     else:
         p[0] = f"{p[1]}List< {p[4]} > {p[7]};\n" 
+
     
         
 def p_error(p):

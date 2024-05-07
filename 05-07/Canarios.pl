@@ -68,11 +68,54 @@ brothers(A,B) :- son(name(A), _, mother(X)),
 %ISSO VAI SER UM SWITCH CASE.
 % A ! não deixa o fail voltar pra cima, para ali e retorna false% caso
 % nao entre em nenhum switch
-degree :- (mother(A,B) -> write('Mother-Son'),!;
+degree(A,B) :- (mother(A,B) -> write('Mother-Son'),!;
           father(A,B) -> write('Father-Son'),!;
           mother(B,A) -> write('Son-Mother'),!;
           father(B,A) -> write('Son-Father'),!;
           brothers(A,B) -> write('Brothers'),!;
           fail).
+
+%Aqui agora vai ter o OUTPUT em outro arquivo
+
+
+dot :- tell(saidadot),%abre
+    write('Digraph{'),
+    not(write_fathers),
+    not(write_mothers), %Usando not pq os 2 predicados acabam com fail, entao quando termina o father ele nem executa o mother.
+    write('}'),
+    told. %fecha
+
+write_fathers :- son(name(A), father(B),_),
+                 write(B), write('->'), write(A), write(';'),
+                 fail.
+write_mothers :- son(name(A), _, mother(B)),
+                 write(B), write('->'), write(A),write(';'),
+                 fail.
+%Como começar
+init :- menu.
+init2 :- consult('f'),menu.
+menu :- write('1 - Listing Canaries'), nl,
+        write('2 - Insert Canaries'), nl,
+        write('3 - Insert Relation'), nl,
+        write('4 - Count male Canaries'), nl,
+        write('5 - Degree'),nl,
+        write('6 - Generate Graph'),nl,
+        write('0 - Close Session'),nl,
+        read(A),doing(A).
+
+doing(A) :- (A==1, print_nomes, nl, menu;
+             A==2, insert_canarys, nl, menu;
+             A==3, insert_rel, nl, menu;
+             A==4, count_male, nl, menu;
+             A==5, write('X:'),read(X),
+                   write('Y:'),read(Y),
+                   degree(X,Y), nl, menu;
+             A==6, dot, nl, menu;
+             A==0, save,true).
+
+save :- tell(f),
+    listing,
+    told.
+
 
 

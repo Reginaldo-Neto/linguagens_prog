@@ -1,0 +1,5 @@
+element(X,[X|_]).
+element(X,[_|Y]):- element(X,Y).
+
+writing([]).
+writing([X|4]):-write(X),nl,writing(Y).

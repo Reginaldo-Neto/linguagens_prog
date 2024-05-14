@@ -48,7 +48,7 @@ list_classes.
 insert_class_interactive :-
     read_line_to_string(user_input, _),
     write('Enter class name: '), read(NAME),
-    write('Enter attributes as pairs [(Type, Name), ...]: '), read(ATTRIBUTES),
+    write('Enter attributes as pairs [(type, name), ...]: '), read(ATTRIBUTES),
     write('Enter operations [op1(), op2(), ...]: '), read(OPERATIONS),
     insert_class(NAME, ATTRIBUTES, OPERATIONS).
 
@@ -61,13 +61,13 @@ insert_relation_interactive :-
     read_line_to_string(user_input, _),
     write('Enter the source class name: '), read(SOURCE),
     display_relation_types,
-    write('Enter the left-hand relation type (choose from above): '), read(ESQREL),
+    write('Enter the left-hand relation code (choose from above): '), read(ESQREL),
     get_rel_type(ESQREL, LEFTTYPE),
     display_link_types,
-    write('Enter the link type (choose from above): '), read(LINK),
+    write('Enter the link code (choose from above): '), read(LINK),
     get_link_type(LINK, LINKTYPE),
     display_relation_types,
-    write('Enter the right-hand relation type (choose from above): '), read(DIRREL),
+    write('Enter the right-hand relation code (choose from above): '), read(DIRREL),
     get_rel_type(DIRREL, RIGHTTYPE),
     write('Enter the target class name: '), read(TARGET),
     validate_and_insert_relation(SOURCE, LEFTTYPE, LINKTYPE, RIGHTTYPE, TARGET).
@@ -138,25 +138,58 @@ count_attributes_interactive :-
         write('Number of attributes: '), write(COUNT), nl
     ;   write('Class not found.'), nl).
 
-generate_mermaid :-
-    findall(CLASSCODE, mermaid_class_code(CLASSCODE), CLASSCODES),
-    findall(RELATIONCODE, mermaid_relation_code(RELATIONCODE), RELATIONCODES),
-    write('classDiagram'), nl,
-    maplist(write, CLASSCODES),
-    maplist(write, RELATIONCODES).
 
-mermaid_class_code(CODE) :-
-    class(NAME, ATTRIBUTES, OPERATIONS),
-    format(atom(CLASSHEADER), 'class ~w', [NAME]),
-    (   ATTRIBUTES = [], OPERATIONS = []
-    ->  format(atom(CODE), '~w~n', [CLASSHEADER])  % Para classes sem atributos e operações.
-    ;   findall(ATTRLINE, (member((TYPE, ATTR), ATTRIBUTES), format(atom(ATTRLINE), '  +~w : ~w~n', [TYPE, ATTR])), ATTRLINES),
-        atomic_list_concat(ATTRLINES, '', ATTRSSTR),
-        findall(OPLINE, (member(OP, OPERATIONS), format(atom(OPLINE), '  +~w~n', [OP])), OPLINES),
-        atomic_list_concat(OPLINES, '', OPSSTR),
-        format(atom(CODE), '~w {~n~w~w}~n', [CLASSHEADER, ATTRSSTR, OPSSTR])
-    ).
 
-mermaid_relation_code(CODE) :-
-    relation(SOURCE, SYMBOL, TARGET),
-    format(atom(CODE), '~w ~s ~w~n', [SOURCE, SYMBOL, TARGET]).
+    generate_mermaid :-
+        findall(CLASSCODE, mermaid_class_code(CLASSCODE), CLASSCODES),
+        findall(RELATIONCODE, mermaid_relation_code(RELATIONCODE), RELATIONCODES),
+        open('diagram_mermaid.txt', write, Stream),  % Abre o arquivo para escrita
+        write(Stream, 'classDiagram\n'),  % Escreve no arquivo
+        maplist(write_to_file(Stream), CLASSCODES),
+        maplist(write_to_file(Stream), RELATIONCODES),
+        close(Stream),  % Fecha o arquivo
+        write('Diagrama Mermaid salvo com sucesso em "diagram_mermaid.txt".\n').  % Mensagem de sucesso
+    
+    write_to_file(Stream, Text) :-
+        write(Stream, Text),  % Escreve no arquivo
+        nl(Stream),  % Nova linha no arquivo
+        flush_output(Stream).  % Garante que tudo é escrito antes de fechar o arquivo
+    
+    mermaid_class_code(CODE) :-
+        class(NAME, ATTRIBUTES, OPERATIONS),
+        format(atom(CLASSHEADER), 'class ~w', [NAME]),
+        (   ATTRIBUTES = [], OPERATIONS = []
+        ->  format(atom(CODE), '~w~n', [CLASSHEADER])  % Para classes sem atributos e operações.
+        ;   findall(ATTRLINE, (member((TYPE, ATTR), ATTRIBUTES), format(atom(ATTRLINE), '  +~w : ~w~n', [TYPE, ATTR])), ATTRLINES),
+            atomic_list_concat(ATTRLINES, '', ATTRSSTR),
+            findall(OPLINE, (member(OP, OPERATIONS), format(atom(OPLINE), '  +~w~n', [OP])), OPLINES),
+            atomic_list_concat(OPLINES, '', OPSSTR),
+            format(atom(CODE), '~w {~n~w~w}~n', [CLASSHEADER, ATTRSSTR, OPSSTR])
+        ).
+    
+    mermaid_relation_code(CODE) :-
+        relation(SOURCE, SYMBOL, TARGET),
+        format(atom(CODE), '~w ~s ~w~n', [SOURCE, SYMBOL, TARGET]).
+    
+% generate_mermaid :-
+%     findall(CLASSCODE, mermaid_class_code(CLASSCODE), CLASSCODES),
+%     findall(RELATIONCODE, mermaid_relation_code(RELATIONCODE), RELATIONCODES),
+%     write('classDiagram'), nl,
+%     maplist(write, CLASSCODES),
+%     maplist(write, RELATIONCODES).
+
+% mermaid_class_code(CODE) :-
+%     class(NAME, ATTRIBUTES, OPERATIONS),
+%     format(atom(CLASSHEADER), 'class ~w', [NAME]),
+%     (   ATTRIBUTES = [], OPERATIONS = []
+%     ->  format(atom(CODE), '~w~n', [CLASSHEADER])  % Para classes sem atributos e operações.
+%     ;   findall(ATTRLINE, (member((TYPE, ATTR), ATTRIBUTES), format(atom(ATTRLINE), '  +~w : ~w~n', [TYPE, ATTR])), ATTRLINES),
+%         atomic_list_concat(ATTRLINES, '', ATTRSSTR),
+%         findall(OPLINE, (member(OP, OPERATIONS), format(atom(OPLINE), '  +~w~n', [OP])), OPLINES),
+%         atomic_list_concat(OPLINES, '', OPSSTR),
+%         format(atom(CODE), '~w {~n~w~w}~n', [CLASSHEADER, ATTRSSTR, OPSSTR])
+%     ).
+
+% mermaid_relation_code(CODE) :-
+    %relation(SOURCE, SYMBOL, TARGET),
+    %format(atom(CODE), '~w ~s ~w~n', [SOURCE, SYMBOL, TARGET]).

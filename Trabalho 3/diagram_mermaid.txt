@@ -1,0 +1,24 @@
+classDiagram
+class escola {
+  +int : qtdAlunos
+  +string : nome
+  +getAlunos()
+  +getNome()
+}
+
+class professor {
+  +string : nome
+  +string : materia
+  +darAula()
+}
+
+class aluno {
+  +int : idade
+  +string : nome
+  +string : turma
+}
+
+class material
+
+escola <|..o professor
+

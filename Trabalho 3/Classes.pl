@@ -99,15 +99,30 @@ get_link_type(Index, Symbol) :-
 
 % Validation and insertion of the relation
 validate_and_insert_relation(SOURCE, LEFTTYPE, LINKTYPE, RIGHTTYPE, TARGET) :-
-    class_exists(SOURCE), class_exists(TARGET),
-    format_relation(LEFTTYPE, LINKTYPE, RIGHTTYPE, SYMBOL),
+(   class_exists(SOURCE), class_exists(TARGET)
+->  format_relation(LEFTTYPE, LINKTYPE, RIGHTTYPE, SYMBOL),
     retractall(relation(SOURCE, SYMBOL, TARGET)),  % Remove existing relations to avoid duplicates
     assert(relation(SOURCE, SYMBOL, TARGET)),
-    write('Relation inserted successfully.'), nl.
+    write('Relation inserted successfully.'), nl
+;   print_class_warning(SOURCE, TARGET)
+).
 
 % Check if class exists
 class_exists(CLASSNAME) :-
-    class(CLASSNAME, _, _).
+class(CLASSNAME, _, _).
+
+% Print appropriate warnings if a class does not exist
+print_class_warning(SOURCE, TARGET) :-
+(   \+ class_exists(SOURCE)
+->  format('Warning: Source class "~w" does not exist.\n', [SOURCE])
+;   true
+),
+(   \+ class_exists(TARGET)
+->  format('Warning: Target class "~w" does not exist.\n', [TARGET])
+;   true
+),
+fail.  % Ensure the calling predicate recognizes the failure to insert the relation
+
 
 % Format the complete relation symbol from components
 format_relation(LEFTTYPE, LINKTYPE, RIGHTTYPE, SYMBOL) :-

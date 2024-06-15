@@ -1,2 +1,18 @@
 classDiagram
-class neto
+class gato {
+  +miar()
+}
+class animal {
+  +String : raca
+  +float : peso
+  +int : dentes
+}
+class pessoa {
+  +String : nome
+  +Int : idade
+  +getNome()
+  +getIdade()
+}
+gato -- animal
+gato <|--o pessoa
+pessoa <..|> animal
